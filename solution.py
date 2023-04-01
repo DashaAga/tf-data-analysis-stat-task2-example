@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
-
-from scipy.stats import norm
+import scipy
 
 
 chat_id = 588908837 # Ваш chat ID, не меняйте название переменной
