@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from scipy.stats import t
+from scipy.stats import gamma
 
 
 chat_id = 588908837 # Ваш chat ID, не меняйте название переменной
@@ -10,11 +10,10 @@ def solution(p: float, x: np.array) -> tuple:
     # Измените код этой функции
     # Это будет вашим решением
     # Не меняйте название функции и её аргументы
-    std = 0
     alpha = 1-p
-    for i in x:
-      std = std+(i - x.mean())**2
-    std = (std / len(x))**0.5
-    SE = std/(len(x)**0.5)
-    s = (x.mean()-t.ppf(1-alpha/2, len(x)-1)*SE, x.mean()+t.ppf(1-alpha/2, len(x)-1)*SE)
-    return s
+    sum_x = sum(x)
+    z_1_g = gamma.ppf(alpha/2, a=len(x), loc=sum_x - len(x)/2, scale=1)
+    z_2_g = gamma.ppf(1-alpha/2, a=len(x), loc=sum_x - len(x)/2, scale=1)
+    a_g = z_1_g * 2 / (len(x) * 35**2)
+    b_g = z_2_g * 2 / (len(x) * 35**2)
+    return a_g, b_g
